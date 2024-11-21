@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:water_counter/database_repository.dart';
+import 'package:water_counter/repositories/database_repository.dart';
 
 class MockDatabase implements DatabaseRepository {
   int _counter = 0;
