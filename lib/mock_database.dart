@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:water_counter/database_repository.dart';
 
 class MockDatabase implements DatabaseRepository {
@@ -5,12 +7,14 @@ class MockDatabase implements DatabaseRepository {
 
   @override
   Future<int> getCounter() {
+    log("got counter");
     return Future.value(_counter);
   }
 
   @override
   Future<void> incrementCounter() {
     _counter++;
+    log("incremented counter");
 
     return Future.value();
   }
@@ -25,6 +29,8 @@ class MockDatabase implements DatabaseRepository {
   @override
   Future<void> resetCounter() {
     _counter = 0;
+
+    log("reset counter");
 
     return Future.value();
   }
