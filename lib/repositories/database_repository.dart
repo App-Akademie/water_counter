@@ -1,9 +1,14 @@
+import 'package:water_counter/models/drink.dart';
+
 abstract class DatabaseRepository {
-  Future<int> getCounter();
+  Future<int> getNumberOfDrinks();
 
-  Future<void> incrementCounter();
+  Future<List<Drink>> getDrinks();
 
-  Future<void> decrementCounter();
+  Future<void> addDrink();
 
-  Future<void> resetCounter();
+  // TODO: Welcher Drink soll weg???
+  Future<void> removeDrink();
+
+  Future<void> removeAllDrinks();
 }

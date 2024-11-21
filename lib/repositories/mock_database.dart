@@ -1,37 +1,45 @@
 import 'dart:developer';
 
+import 'package:water_counter/models/drink.dart';
 import 'package:water_counter/repositories/database_repository.dart';
 
+// TODO: Liste von Drinks benutzen, anstatt einfachen Counter.
 class MockDatabase implements DatabaseRepository {
-  int _counter = 0;
+  final List<Drink> _drinks = [];
+  int lastId = 0;
 
   @override
-  Future<int> getCounter() {
-    log("got counter");
-    return Future.value(_counter);
+  Future<int> getNumberOfDrinks() {
+    log("got number of drinks");
+    return Future.value(_drinks.length);
   }
 
   @override
-  Future<void> incrementCounter() {
-    _counter++;
-    log("incremented counter");
+  Future<void> addDrink() {
+    _drinks.add(Drink(id: lastId++, timeOfDrink: DateTime.now()));
+    log("added drink>");
 
     return Future.value();
   }
 
   @override
-  Future<void> decrementCounter() {
-    _counter--;
+  Future<void> removeDrink() {
+    // TODO: Implement function
 
     return Future.value();
   }
 
   @override
-  Future<void> resetCounter() {
-    _counter = 0;
+  Future<void> removeAllDrinks() {
+    _drinks.clear();
 
-    log("reset counter");
+    log("removed all drinks");
 
     return Future.value();
+  }
+
+  @override
+  Future<List<Drink>> getDrinks() {
+    return Future.value(_drinks);
   }
 }

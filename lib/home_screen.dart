@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:water_counter/models/drink.dart';
 import 'package:water_counter/repositories/database_repository.dart';
 import 'package:water_counter/repositories/shared_preferences_repository.dart';
 import 'package:water_counter/water_screen.dart';
@@ -15,14 +16,22 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _counter = 0;
 
+  List<Drink> drinks = [];
+
   @override
   void initState() {
     super.initState();
     _loadCounter();
+    _getDrinks();
+  }
+
+  void _getDrinks() async {
+    drinks = await widget.repository.getDrinks();
+    setState(() {});
   }
 
   void _loadCounter() async {
-    final rememberedCounter = await widget.repository.getCounter();
+    final rememberedCounter = await widget.repository.getNumberOfDrinks();
 
     setState(() {
       _counter = rememberedCounter;
@@ -30,8 +39,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _incrementCounter() async {
-    await widget.repository.incrementCounter();
-    final updatedCounter = await widget.repository.getCounter();
+    await widget.repository.addDrink();
+    final updatedCounter = await widget.repository.getNumberOfDrinks();
 
     setState(() {
       _counter = updatedCounter;
@@ -39,8 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _resetCounter() async {
-    await widget.repository.resetCounter();
-    final updatedCounter = await widget.repository.getCounter();
+    await widget.repository.removeAllDrinks();
+    final updatedCounter = await widget.repository.getNumberOfDrinks();
     setState(() {
       _counter = updatedCounter;
     });
@@ -54,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text("WaterCounter"),
       ),
       body: WaterScreen(
+        drinks: drinks,
         counter: _counter,
         incrementCounter: _incrementCounter,
         resetCounter: _resetCounter,

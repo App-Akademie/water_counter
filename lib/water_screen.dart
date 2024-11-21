@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:water_counter/models/drink.dart';
 import 'package:water_counter/w_c_button.dart';
 
 class WaterScreen extends StatelessWidget {
   const WaterScreen({
     super.key,
+    required this.drinks,
     required this.counter,
     required this.incrementCounter,
     required this.resetCounter,
   });
 
+  final List<Drink> drinks;
   final int counter;
   // Das gleiche wie "void Function()"
   final VoidCallback incrementCounter;
@@ -19,9 +22,20 @@ class WaterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          const Text("Anzahl der Getränke"),
+          SizedBox(height: 64),
+          const Text(
+            "Getränke und Zeitpunkt",
+            style: TextStyle(fontSize: 24),
+          ),
+          SizedBox(height: 16),
+          for (final drink in drinks) Text("${drink.id} ${drink.timeOfDrink}"),
+          SizedBox(height: 64),
+          const Text(
+            "Anzahl der Getränke",
+            style: TextStyle(fontSize: 24),
+          ),
           Text(
             "$counter",
             style: Theme.of(context).textTheme.displayLarge,
