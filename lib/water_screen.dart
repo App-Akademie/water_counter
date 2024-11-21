@@ -21,51 +21,54 @@ class WaterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(height: 64),
-          const Text(
-            "Getränke und Zeitpunkt",
-            style: TextStyle(fontSize: 24),
-          ),
-          SizedBox(height: 16),
-          for (final drink in drinks) Text("${drink.id} ${drink.timeOfDrink}"),
-          SizedBox(height: 64),
-          const Text(
-            "Anzahl der Getränke",
-            style: TextStyle(fontSize: 24),
-          ),
-          Text(
-            "$counter",
-            style: Theme.of(context).textTheme.displayLarge,
-          ),
-          const SizedBox(height: 64),
-          Padding(
-            padding: EdgeInsets.only(left: 32.0, right: 32.0),
-            child: WCButton(
-              onPressed: incrementCounter,
-              text: "Trinken",
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(height: 64),
+            const Text(
+              "Getränke und Zeitpunkt",
+              style: TextStyle(fontSize: 24),
             ),
-          ),
-          const SizedBox(height: 16),
-          Padding(
-            padding: EdgeInsets.only(left: 32.0, right: 32.0),
-            child: WCButton(
-              // TODO: Missing function to remove a drink (_decrementCounter).
-              onPressed: null,
-              text: "Getränk entfernen",
+            SizedBox(height: 16),
+            for (final drink in drinks)
+              Text("${drink.id} ${drink.timeOfDrink}"),
+            SizedBox(height: 64),
+            const Text(
+              "Anzahl der Getränke",
+              style: TextStyle(fontSize: 24),
             ),
-          ),
-          const SizedBox(height: 16),
-          Padding(
-            padding: EdgeInsets.only(left: 32.0, right: 32.0),
-            child: WCButton(
-              onPressed: resetCounter,
-              text: "Zähler zurücksetzen",
+            Text(
+              "$counter",
+              style: Theme.of(context).textTheme.displayLarge,
             ),
-          ),
-        ],
+            const SizedBox(height: 64),
+            Padding(
+              padding: EdgeInsets.only(left: 32.0, right: 32.0),
+              child: WCButton(
+                onPressed: incrementCounter,
+                text: "Trinken",
+              ),
+            ),
+            const SizedBox(height: 16),
+            Padding(
+              padding: EdgeInsets.only(left: 32.0, right: 32.0),
+              child: WCButton(
+                // TODO: Missing function to remove a drink (_decrementCounter).
+                onPressed: null,
+                text: "Getränk entfernen",
+              ),
+            ),
+            const SizedBox(height: 16),
+            Padding(
+              padding: EdgeInsets.only(left: 32.0, right: 32.0),
+              child: WCButton(
+                onPressed: resetCounter,
+                text: "Zähler zurücksetzen",
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
