@@ -17,44 +17,38 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _counter = 0;
+  int counter = 0;
 
   List<Drink> drinks = [];
 
   @override
   void initState() {
     super.initState();
-    _loadCounter();
     _getDrinks();
+    setState(() {});
   }
 
   void _getDrinks() async {
     drinks = await widget.repository.getDrinks();
-    setState(() {});
-  }
-
-  void _loadCounter() async {
-    final rememberedCounter = await widget.repository.getNumberOfDrinks();
-
-    setState(() {
-      _counter = rememberedCounter;
-    });
+    counter = drinks.length;
   }
 
   void _incrementCounter() async {
     await widget.repository.addDrink();
-    final updatedCounter = await widget.repository.getNumberOfDrinks();
+    drinks = await widget.repository.getDrinks();
 
     setState(() {
-      _counter = updatedCounter;
+      counter = drinks.length;
     });
   }
 
   void _resetCounter() async {
     await widget.repository.removeAllDrinks();
-    final updatedCounter = await widget.repository.getNumberOfDrinks();
+
+    drinks = await widget.repository.getDrinks();
+
     setState(() {
-      _counter = updatedCounter;
+      counter = drinks.length;
     });
   }
 
@@ -67,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: WaterScreen(
         drinks: drinks,
-        counter: _counter,
+        counter: counter,
         incrementCounter: _incrementCounter,
         resetCounter: _resetCounter,
       ),
