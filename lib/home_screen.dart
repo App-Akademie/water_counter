@@ -1,13 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:water_counter/models/drink.dart';
+import 'package:water_counter/repositories/dart_server_repository.dart';
 import 'package:water_counter/repositories/database_repository.dart';
-import 'package:water_counter/repositories/shared_preferences_repository.dart';
 import 'package:water_counter/water_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
 
-  final DatabaseRepository repository = SharedPreferencesRepository();
+  final DatabaseRepository repository =
+      DartServerRepository(isAndroid: Platform.isAndroid);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
