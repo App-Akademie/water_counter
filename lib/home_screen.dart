@@ -24,7 +24,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    _getDrinks();
+    _getInitialDrinks();
+    setState(() {});
+  }
+
+  void _getInitialDrinks() async {
+    drinks = await widget.repository.getDrinks();
+    counter = drinks.length;
     setState(() {});
   }
 
