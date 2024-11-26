@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:water_counter/models/drink.dart';
 import 'package:water_counter/repositories/database_repository.dart';
 
-// TODO: Liste von Drinks benutzen, anstatt einfachen Counter.
 class MockDatabase implements DatabaseRepository {
   final List<Drink> _drinks = [];
   int lastId = 0;

@@ -25,7 +25,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _getInitialDrinks();
-    setState(() {});
   }
 
   void _getInitialDrinks() async {

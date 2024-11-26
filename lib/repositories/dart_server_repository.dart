@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 // Das "as" macht es klarer, wann eine Funktion aus "http" verwendet wird.
 import 'package:http/http.dart' as http;
@@ -42,8 +43,15 @@ class DartServerRepository implements DatabaseRepository {
 
   @override
   Future<void> addDrink() async {
+    final newDrinkTime = DateTime.now();
+    final String newDrinkTimeJson = jsonEncode(newDrinkTime.toIso8601String());
     // In einer richtigen App würde man hier noch mit dem Ergebnis arbeiten.
-    final http.Response response = await http.post(Uri.parse(_baseUrl));
+    final http.Response response = await http.post(
+      Uri.parse(_baseUrl),
+      body: newDrinkTimeJson,
+    );
+
+    log("Response code was: ${response.statusCode}");
   }
 
   @override
@@ -52,5 +60,7 @@ class DartServerRepository implements DatabaseRepository {
   @override
   Future<void> removeAllDrinks() async {
     final http.Response response = await http.delete(Uri.parse(_baseUrl));
+
+    log("Response code was: ${response.statusCode}");
   }
 }
